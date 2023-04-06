@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+</head>
+
+<body>
+    <style>
+        body {
+            background-color: #FF5555;
+            width: 500px;
+            height: 300px;
+        }
+
+        /* The switch - the box around the slider */
+        /* The switch - the box around the slider */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        /* Hide default HTML checkbox */
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        /* The slider */
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+        }
+
+        input:checked+.slider {
+            background-color: #2196f3;
+        }
+
+        input:focus+.slider {
+            box-shadow: 0 0 1px #2196f3;
+        }
+
+        input:checked+.slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        .grid-container {
+            /* LOL THAT WORKED???? */
+            display: grid;
+            grid-template-columns: auto auto;
+            width: 1000px;
+            column-gap: 50px;
+        }
+
+        #startTime {
+            width: 50px;
+        }
+
+        #endTime {
+            width: 50px;
+        }
+
+        .daySelector {
+            border-style: solid;
+            width: 30px;
+            text-align: center;
+            font-size: 30px;
+            display: inline-block;
+        }
+    </style>
+    <div class="grid-container">
+        <div class="grid-item">
+            <div>
+                <h1>i have no idea what im doing</h1>
+            </div>
+            <label for="link">Enter link here:</label>
+            <input type="text" id="link" name "link">
+            <button id="button">Enter</button>
+            <p id="message"></p>
+            <p>Blocked sites:</p>
+            <div id="linklist"></div>
+            <br>
+            <label class="switch">
+                <input type="checkbox" id="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="grid-item">
+            <h1>Schedules</h1>
+            <p>Add a schedule here!</p>
+            <p>Input times in this format: hour:minute</p>
+            <p>(e.g 7:10, 21:07, etc.)</p>
+            <p>Times should be inputted assuming a 24-hour clock.</p>
+            <br>
+            <label for="startTime">Start time:</label>
+            <input type="text" id="startTime" name="startTime">
+
+            <label for="endTime">End time:</label>
+            <input type="text" id="endTime" name="endTime">
+            <br>
+            <br>
+            <p>Enter days where you want the schedule to be active:</p>
+            <br>
+            <div id="days">
+                <div class="daySelector" id="0">
+                    S
+                </div>
+                <div class="daySelector" id="1">
+                    M
+                </div>
+                <div class="daySelector" id="2">
+                    T
+                </div>
+                <div class="daySelector" id="3">
+                    W
+                </div>
+                <div class="daySelector" id="4">
+                    T
+                </div>
+                <div class="daySelector" id="5">
+                    F
+                </div>
+                <div class="daySelector" id="6">
+                    S
+                </div>
+            </div>
+            <br>
+            <button id = "enterSchedule">Submit</button>
+            <p id = "scheduleMessage"></p>
+            <br>
+            <p>Added schedules:</p>
+            <p id = "schedules"></p>
+
+        </div>
+    </div>
+<script src = "notpopup.js"></script>
+</body>
+
+</html>
