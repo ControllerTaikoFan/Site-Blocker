@@ -1,3 +1,18 @@
+body = document.getElementById("main");
+
+var password = "";
+passinput = document.getElementById("passinput");
+chrome.storage.local.get(["password"]).then((result) => {
+  password = result.password;
+  if (password != "") {
+    body.style.display = "none";
+    passinput.style.display = "block";
+    console.log("oijasdiojdsa" + password)
+  }
+});
+
+
+
 var linky = Array(); // make empty array
 chrome.storage.local.get(["links"]).then((result) => { // get links from storage
   linky = result.links;
@@ -17,17 +32,16 @@ chrome.storage.local.get(["schedules"]).then((result) => {
   schedule = result.schedules;
   chrome.storage.local.get(["scheduleDays"]).then((result => {
     scheduleDays = result.scheduleDays;
-    if (schedule.length == 0){
+    if (schedule.length == 0) {
       document.getElementById("schedules").innerHTML = "no schedules added yet :)";
     }
-    else{
+    else {
       displaySchedules();
     }
   }))
-  
+
 });
 
-console.log("linky")
 
 var seton = false
 function checkForStatus() {
@@ -68,34 +82,41 @@ class scheduleItem {
       console.log("addschedule is called")
       let anotherItem = this.item + 1; // declare a variable different from the item but still easily callable
       let addedDays = [];
-      if (this.days.includes(0)){
+      if (this.days.includes(0)) {
         addedDays.push(" Sundays");
       }
-      if (this.days.includes(1)){
+      if (this.days.includes(1)) {
         addedDays.push(" Mondays");
       }
-      if (this.days.includes(2)){
+      if (this.days.includes(2)) {
         addedDays.push(" Tuesdays");
       }
-      if (this.days.includes(3)){
+      if (this.days.includes(3)) {
         addedDays.push(" Wednesdays");
       }
-      if (this.days.includes(4)){
+      if (this.days.includes(4)) {
         addedDays.push(" Thursdays");
       }
-      if (this.days.includes(5)){
+      if (this.days.includes(5)) {
         addedDays.push(" Fridays");
       }
-      if (this.days.includes(6)){
+      if (this.days.includes(6)) {
         addedDays.push(" Saturdays");
       }
-      
+
       let scheduleListSpace = document.getElementById("schedules");
       scheduleListSpace.appendChild(Object.assign(document.createElement("div"), { id: this.item })); // make a div in linklistspace
       let itemDiv = document.getElementById(this.item); // store the new div in a variable to put everything in a single div for easier removal
-      itemDiv.appendChild(Object.assign(document.createElement("p"), { style: 'display:inline-block', innerHTML: "Block from&nbsp;" + this.item[0] + "&nbsp;to&nbsp;" + this.item[1] + "&nbsp;on" + addedDays})); // make a p tag with the text being the link
+      itemDiv.appendChild(Object.assign(document.createElement("p"), { style: 'display:inline-block', innerHTML: "Block from&nbsp;" + this.item[0] + "&nbsp;to&nbsp;" + this.item[1] + "&nbsp;on" + addedDays })); // make a p tag with the text being the link
       itemDiv.appendChild(Object.assign(document.createElement("pre"), { style: 'display:inline-block', innerHTML: " " })); // add space between p tag and button
-      itemDiv.appendChild(Object.assign(document.createElement("button"), { innerHTML: "<img src =\"x.png\" width = \"20px\" height = \"25px\" style = \"padding:1px\">", id: anotherItem }));  // add button
+      itemDiv.appendChild(Object.assign(document.createElement("button"), { innerHTML: "<img src =\"/images/x.png\" width = \"10px\" height = \"10px\" style = \"padding:0px\">", id: anotherItem }));  // add button
+      document.getElementById(anotherItem).style = "background-color:transparent; border-style:none";
+      document.getElementById(anotherItem).addEventListener("mouseover", function () {
+        document.getElementById(anotherItem).firstChild.src = "/images/xhover.png"
+      });
+      document.getElementById(anotherItem).addEventListener("mouseout", function () {
+        document.getElementById(anotherItem).firstChild.src = "/images/x.png"
+      });
       itemDiv.appendChild(Object.assign(document.createElement("br")));
       document.getElementById(anotherItem).addEventListener("click", function () { // when the new button is clicked
         itemDiv.style.display = "none"; // hide the new div
@@ -125,27 +146,27 @@ function removeSchedule(schedulee) {
   console.log(schedule)
   var index = schedule.indexOf(schedulee)
   console.log(index)
-  for (let i = 0; i < schedulee; i++){ // schedule.indexOf(schedulee) did not work
-    if (schedule[i] == schedulee){
+  for (let i = 0; i < schedulee; i++) { // schedule.indexOf(schedulee) did not work
+    if (schedule[i] == schedulee) {
       console.log("slayed!")
       index = i;
       break;
     }
   }
-   // get index of the input link
+  // get index of the input link
   console.log(index)
   if (index > -1) { // index of the link will be -1 if it does not exist in the array; added as a failsafe
     schedule.splice(index, 1); // remove index 1
     scheduleDays.splice(index, 1);
     chrome.storage.local.set({ schedules: schedule }).then(() => { // add this but for scheduledays pl0x
       console.log("Value is set to " + schedule);
-      chrome.storage.local.set({scheduleDays: scheduleDays}).then(() => {
-        chrome.runtime.sendMessage({scheduleChanged: true});
-        if (schedule.length == 0){
+      chrome.storage.local.set({ scheduleDays: scheduleDays }).then(() => {
+        chrome.runtime.sendMessage({ scheduleChanged: true });
+        if (schedule.length == 0) {
           document.getElementById("schedules").innerHTML = "no schedules added yet :)";
         }
       });
-      
+
     });
   }
 
@@ -166,8 +187,15 @@ class listItem {
       let itemDiv = document.getElementById(this.item); // store the new div in a variable to put everything in a single div for easier removal
       itemDiv.appendChild(Object.assign(document.createElement("p"), { style: 'display:inline-block', innerHTML: this.item })); // make a p tag with the text being the link
       itemDiv.appendChild(Object.assign(document.createElement("pre"), { style: 'display:inline-block', innerHTML: " " })); // add space between p tag and button
-      itemDiv.appendChild(Object.assign(document.createElement("button"), { innerHTML: "remove", id: anotherItem }));  // add button
+      itemDiv.appendChild(Object.assign(document.createElement("button"), { innerHTML: "<img src =\"/images/x.png\" width = \"10px\" height = \"10px\" style = \"padding:0px\">", id: anotherItem }));  // add button
+      document.getElementById(anotherItem).style = "background-color:transparent; border-style:none";
       itemDiv.appendChild(Object.assign(document.createElement("br")));
+      document.getElementById(anotherItem).addEventListener("mouseover", function () {
+        document.getElementById(anotherItem).firstChild.src = "/images/xhover.png"
+      });
+      document.getElementById(anotherItem).addEventListener("mouseout", function () {
+        document.getElementById(anotherItem).firstChild.src = "/images/x.png"
+      });
       document.getElementById(anotherItem).addEventListener("click", function () { // when the new button is clicked
         itemDiv.style.display = "none"; // hide the new div
         console.log(String(self.item))
@@ -198,7 +226,7 @@ function removeLink(link) {
     linky.splice(index, 1); // remove index 1
     chrome.storage.local.set({ links: linky }).then(() => { // update links in chrome storage
       console.log("Value is set to " + linky);
-      if (linky.length == 0){
+      if (linky.length == 0) {
         document.getElementById("linklist").innerHTML = "no links added yet :)";
       }
     });
@@ -209,14 +237,14 @@ function removeLink(link) {
 function addLink() {
   let new_link = document.getElementById("link");
   new_link = new_link.value;
-  if (new_link == ""){
+  if (new_link == "") {
     document.getElementById("message").innerHTML = "Please enter a link.";
     return;
   }
-  else{
+  else {
     new_link = new_link.trim();
   }
-  if (new_link == ""){
+  if (new_link == "") {
     document.getElementById("message").innerHTML = "Please enter a link.";
     return;
   }
@@ -224,7 +252,7 @@ function addLink() {
   document.getElementById("message").innerHTML = new_link + "&nbsp;has been added to blocked sites.";
   chrome.storage.local.set({ links: linky }).then(() => {
     console.log("Value is set to " + linky);
-    if (linky.length == 1){
+    if (linky.length == 1) {
       document.getElementById("linklist").innerHTML = "";
     }
     let newItem = new listItem(new_link);
@@ -282,7 +310,7 @@ var thursdayOn = false;
 var fridayOn = false;
 var saturdayOn = false;
 
-document.getElementById("enterSchedule").addEventListener("click", inputSchedule)
+document.getElementById("enterSchedule").addEventListener("click", inputSchedule);
 
 function inputSchedule() {
   let scheduleMessage = document.getElementById("scheduleMessage");
@@ -298,7 +326,7 @@ function inputSchedule() {
     if (i == 0) {
       time = startTime;
     }
-    else{
+    else {
       time = endTime;
     }
     if (time.includes(":")) {
@@ -308,76 +336,74 @@ function inputSchedule() {
         time[0] = Number(time[0]);
         time[1] = Number(time[1]);
         if (time[0] >= 0 && time[0] < 24) {
-          if (time[1] >= 0 && time[1] < 60){
-            if (i==0){
+          if (time[1] >= 0 && time[1] < 60) {
+            if (i == 0) {
               startTimeHour = Number(time[0]);
             }
-            else{
+            else {
               endTimeHour = Number(time[0]);
             }
             // do nothing if everything is all good
           }
-          else{
+          else {
             scheduleMessage.innerHTML = "Your minutes need to be between 0 and 59.";
             return;
           }
-    
+
         }
-        else{
+        else {
           scheduleMessage.innerHTML = "Your hours need to be between 0 and 23.";
           return;
         }
 
       }
-      else{
+      else {
         scheduleMessage.innerHTML = "Please put your times in the format hour:minute, assuming a 24 hour clock.";
         return;
       }
 
     }
-    else{
+    else {
       scheduleMessage.innerHTML = "Please put your times in the format hour:minute, assuming a 24 hour clock.";
       return;
     }
 
   }
-  if (startTimeHour > endTimeHour){
+  if (startTimeHour > endTimeHour) {
     scheduleMessage.innerHTML = "Your start time cannot be later than your end time.";
     return;
   }
   // get which days are switched on
   let switchedOnDays = [];
-  if (sundayOn){
+  if (sundayOn) {
     switchedOnDays.push(0)
-    console.log("ayo")
-    console.log(switchedOnDays)
   }
-  if (mondayOn){
+  if (mondayOn) {
     switchedOnDays.push(1)
   }
-  if (tuesdayOn){
+  if (tuesdayOn) {
     switchedOnDays.push(2)
   }
-  if (wednesdayOn){
+  if (wednesdayOn) {
     switchedOnDays.push(3)
   }
-  if (thursdayOn){
+  if (thursdayOn) {
     switchedOnDays.push(4)
   }
-  if (fridayOn){
+  if (fridayOn) {
     switchedOnDays.push(5)
   }
-  if (saturdayOn){
+  if (saturdayOn) {
     switchedOnDays.push(6)
   }
 
-  if (switchedOnDays.length == 0){
+  if (switchedOnDays.length == 0) {
     scheduleMessage.innerHTML = "Please input which days you want the schedule to be active.";
     return;
 
   }
 
-  if (schedule.includes([startTime, endTime]) && scheduleDays.includes(switchedOnDays)){
+  if (schedule.includes([startTime, endTime]) && scheduleDays.includes(switchedOnDays)) {
     scheduleMessage.innerHTML = "You've already inputted this schedule!";
     return;
   }
@@ -386,19 +412,19 @@ function inputSchedule() {
   console.log(switchedOnDays)
   schedule.push([startTime, endTime])
   scheduleDays.push(switchedOnDays)
-  if (schedule.length == 1){
+  if (schedule.length == 1) {
     document.getElementById("schedules").innerHTML = "";
   }
   let newItem = new scheduleItem([startTime, endTime], switchedOnDays); // put link classes into an array
   newItem.addElements();
   scheduleMessage.innerHTML = "Schedule inputted!";
-  
-  
-  chrome.storage.local.set({schedules: schedule}).then(() => {
-    chrome.storage.local.set({scheduleDays: scheduleDays}).then(() => {
-      chrome.runtime.sendMessage({scheduleChanged: true});
+
+
+  chrome.storage.local.set({ schedules: schedule }).then(() => {
+    chrome.storage.local.set({ scheduleDays: scheduleDays }).then(() => {
+      chrome.runtime.sendMessage({ scheduleChanged: true });
       console.log("weoiki0ef")
-      
+
     });
   });
 
@@ -637,4 +663,108 @@ function clickDays(e) {
   }
 
 
+}
+
+document.getElementById("passenter").addEventListener("click", checkPassword);
+document.getElementById("passShow").addEventListener("click", showPassword);
+
+var passInput = document.getElementById("passwordinput");
+function checkPassword() {
+  let inputted = passInput.value;
+  if (inputted == password) {
+    body.style.display = "block";
+    passinput.style.display = "none";
+  }
+  else {
+    document.getElementById("passinputmessage").innerHTML = "Incorrect password given!";
+  }
+}
+
+function showPassword() {
+  if (passInput.type == "password") {
+    passInput.type = "text";
+  }
+  else {
+    passInput.type = "password";
+  }
+}
+var passmessage = document.getElementById("passmessage");
+function inputPassword() {
+  console.log("hiki")
+  let inputted = document.getElementById("password").value;
+  console.log(inputted)
+
+  if (inputted == "") {
+    passmessage.innerHTML = "Please enter a password!";
+  }
+  else {
+    if (password != "") {
+      passmessage.innerHTML = "Please remove your current password before entering a new one!";
+    }
+    else {
+      console.log(inputted)
+
+      chrome.storage.local.set({ password: inputted }).then(() => {
+        passmessage.innerHTML = "Password inputted! Please please PLEASE note down your password somewhere, as it's not possible to change your password without entering it first.";
+        password = inputted;
+      });
+    }
+  }
+}
+
+document.getElementById("passbutton").addEventListener("click", inputPassword)
+
+document.getElementById("passremove").addEventListener("click", removePass);
+
+function removePass() {
+  if (password == "") {
+    passmessage.innerHTML = "You must have a password before removing it!";
+  }
+  else {
+    document.getElementById("passremoveconfirm").style.display = "block";
+    document.getElementById("passconfirm").addEventListener("click", confirmPass);
+  }
+}
+
+function confirmPass() {
+  let passentered = document.getElementById("passwordcheck").value;
+  if (passentered == password) {
+    chrome.storage.local.set({ password: "" }).then(() => {
+      passmessage.innerHTML = "Password removed.";
+      document.getElementById("passremoveconfirm").style.display = "none";
+      password = "";
+    });
+  }
+  else {
+    passmessage.innerHTML = "Incorrect password.";
+  }
+}
+/*
+chrome.storage.local.set({password: ""}).then(() => {
+      passmessage.innerHTML = "Password removed.";
+    });
+    */
+
+chrome.storage.local.get(["overridden"]).then((result) => { // get on from storage
+  if (result.overridden) { // if on
+    document.getElementById("override").checked = true; // change the switch to switched
+  }
+  else {
+    document.getElementById("override").checked = false; // change the switch to unswitched
+  }
+
+});
+
+document.getElementById("override").addEventListener("click", scheduleOverride);
+
+
+
+function scheduleOverride() {
+  if (document.getElementById("override").checked) {
+    chrome.storage.local.set({ overridden: true });
+  }
+  else {
+    chrome.storage.local.set({ overridden: false });
+  }
+  chrome.runtime.sendMessage({ overrideChanged: true });
 }
