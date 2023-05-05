@@ -83,8 +83,8 @@
         .grid-container {
             /* LOL THAT WORKED???? */
             display: grid;
-            grid-template-columns: auto auto;
-            width: 1000px;
+            grid-template-columns: auto auto auto auto;
+            width: 1500px;
             column-gap: 50px;
         }
 
@@ -103,11 +103,56 @@
             font-size: 30px;
             display: inline-block;
         }
+
+        .daySelector:hover{
+            cursor:pointer;
+        }
+        #passinput{
+            display:none;
+        }
+        #main{
+            display:block;
+
+        }
+        #password{
+             width: 100px; 
+        }
+        #passremoveconfirm{
+            display:none;
+        }
+        button:hover{
+            cursor:pointer;
+        }
+        #toprow {
+            display: flex;
+            align-items: center;
+        }
     </style>
+    <div id="toprow">
+        <div id="logo">
+            <img src = "/images/128icon.png" width = "50px">
+        </div>
+        <div>
+            <h1>&nbsp;Site Blocker</h1>
+        </div>
+    </div>
+    <div id = "passinput">
+        <br>
+        <br>
+        <br>
+        <label for="password">Enter password here:</label>
+            <input type="password" id="passwordinput" name "password">
+            <button id="passenter">Enter</button>
+            <br>
+            <input type = "checkbox" id = "passShow" style = "text-align:left;" >Show password
+        <p id = "passinputmessage"></p>
+    </div>
+    <div id = "main">
+        
     <div class="grid-container">
         <div class="grid-item">
             <div>
-                <h1>i have no idea what im doing</h1>
+                <h1>Links and Blocking</h1>
             </div>
             <label for="link">Enter link here:</label>
             <input type="text" id="link" name "link">
@@ -166,9 +211,36 @@
             <br>
             <p>Added schedules:</p>
             <p id = "schedules"></p>
-
+            <br>
+            <h3>Override Schedule</h6>
+            <p>When switched on, the schedule is ignored and is instead controlled using the master on/off switch. <br> When off, the schedule will be in effect.</p>
+            <label class="switch">
+                <input type="checkbox" id="override">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class = "grid-item">
+            <h1>Password</h1>
+            <label for="password">Enter new password here:</label>
+            <input type="text" id="password" name "password">
+            <button id="passbutton">Enter</button>
+            <p id = "passmessage"></p>
+            <button id = "passremove">Remove password</button>
+            <br>
+            <div id = "passremoveconfirm">
+                <label for="passwordcheck">Please re-enter your password before removing it.</label>
+            <input type="text" id="passwordcheck" name "passwordcheck">
+            <button id="passconfirm">Enter</button>
+            </div>
+        </div>
+        <div class="grid-item">
+            <h1>Pomodoro</h1>
+            <a href = "/pomodoro/pomodoro.html"><button>Enter Pomodoro</button></a>
         </div>
     </div>
+    </div>
+    
+
 <script src = "notpopup.js"></script>
 </body>
 
