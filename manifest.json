@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Site Blocker",
-    "description":"Block specific sites but idk if this will work or not lol",
+    "description":"Blocks websites according to schedule",
     "version": "1.0",
     "icons": {
         "16": "/images/16icon.png",
@@ -20,7 +20,7 @@
     "background": {
         "service_worker": "background.js"
     },
-    "permissions": ["scripting", "tabs", "activeTab", "storage"],
+    "permissions": ["tabs", "activeTab", "storage"],
     "host_permissions": [
         "http://*/*",
         "https://*/*"

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+</head>
+
+<body>
+    <link rel = "stylesheet" href = "mainpage.css">
+    <div id="toprow">
+        <div id="logo">
+            <img src = "/images/128icon.png" width = "50px">
+        </div>
+        <div>
+            <h1>&nbsp;Site Blocker</h1>
+        </div>
+    </div>
+    <div id = "passwordscreen">
+        <br>
+        <br>
+        <br>
+        <label for="password">Enter password here:</label> 
+            <input type="password" id="passwordinput" name "password">
+            <button id="pass-enter">Enter</button>
+            <br>
+            <input type = "checkbox" id = "pass-show" style = "text-align:left;" >Show password
+        <p id = "passinputmessage"></p>
+    </div>
+    <div id = "main">
+        
+    <div class="grid-container">
+        <div class="grid-item">
+            <div>
+                <h1>Links and Blocking</h1>
+            </div>
+            <label for="link">Enter link here:</label>
+            <input type="text" id="link" name "link">
+            <button id="enter-button">Enter</button>
+            <p id="message"></p>
+            <p>Blocked sites:</p>
+            <div id="linklist"></div>
+            <br>
+            <label class="switch">
+                <input type="checkbox" id="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="grid-item">
+            <h1>Schedules</h1>
+            <p>Add a schedule here!</p>
+            <p>Input times in this format: hour:minute</p>
+            <p>(e.g 7:10, 21:07, etc.)</p>
+            <p>Times should be inputted assuming a 24-hour clock.</p>
+            <br>
+            <label for="start-time">Start time:</label>
+            <input type="text" id="start-time" name="start-time">
+
+            <label for="end-time">End time:</label>
+            <input type="text" id="end-time" name="end-time">
+            <br>
+            <br>
+            <p>Enter days where you want the schedule to be active:</p>
+            <br>
+            <div id="days">
+                <div class="dayselector" id="Sunday">
+                    S
+                </div>
+                <div class="dayselector" id="Monday">
+                    M
+                </div>
+                <div class="dayselector" id="Tuesday">
+                    T
+                </div>
+                <div class="dayselector" id="Wednesday">
+                    W
+                </div>
+                <div class="dayselector" id="Thursday">
+                    T
+                </div>
+                <div class="dayselector" id="Friday">
+                    F
+                </div>
+                <div class="dayselector" id="Saturday">
+                    S
+                </div>
+            </div>
+            <br>
+            <button id = "enterschedule">Submit</button>
+            <p id = "schedulemessage"></p>
+            <br>
+            <p>Added schedules:</p>
+            <p id = "schedules"></p>
+            <br>
+            <h3>Override Schedule</h6>
+            <p>When switched on, the schedule is ignored and is instead controlled using the master on/off switch. <br> When off, the schedule will be in effect.</p>
+            <label class="switch">
+                <input type="checkbox" id="override">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class = "grid-item">
+            <h1>Password</h1>
+            <label for="password">Enter new password here:</label>
+            <input type="text" id="password" name "password">
+            <button id="passbutton">Enter</button>
+            <p id = "passmessage"></p>
+            <button id = "passremove">Remove password</button>
+            <br>
+            <div id = "passremoveconfirm">
+                <label for="passwordcheck">Please re-enter your password before removing it.</label>
+            <input type="text" id="passwordcheck" name "passwordcheck">
+            <button id="passconfirm">Enter</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+
+<script src = "mainpage.js"></script>
+</body>
+
+</html>

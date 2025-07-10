@@ -1,0 +1,33 @@
+body {
+    background-color: rgb(255, 255, 255);
+    width: 500px;
+    height: 300px;
+}
+
+#button {
+    background-color: transparent;
+    margin-left: 250px;
+    border: none;
+}
+
+h1 {
+    margin: auto;
+}
+
+p {
+    color:  #2e2e2e;
+}
+
+#toprow {
+    display: flex;
+    align-items: center;
+}
+
+hr {
+    border: 1px solid black;
+}
+
+#addLink {
+    display: none;
+    text-align: left;
+}

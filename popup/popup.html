@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,26 +8,36 @@
 </head>
 
 <body>
-    <style>
-        body {
-            background-color: aquamarine;
-            width: 500px;
-            height: 300px;
-        }
-    </style>
-    <div>
-        <h1>i have no idea what im doing</h1>
+    <link rel = "stylesheet" href = "popup.css">
+    <div id="toprow">
+        <div id="heading">
+            <div id="toprow">
+                <div id="logo">
+                    <img src="/images/128icon.png" width="50px">
+                </div>
+                <div>
+                    <h1>&nbsp;Site Blocker</h1>
+                </div>
+            </div>
+        </div>
+        <div>
+            <a href="/mainpage/mainpage.html" target="_blank"><button id="button"><img id="settings"
+                        src="/images/settings.png" width="40px"></button></a>
+        </div>
     </div>
-    <div>
-        <a href="/notpopup/notpopup.html" target="_blank"><button>SWITCHEROO</button></a>
-        <!-- opens new tab (notpopup.html) when clicked -->
-        <p>You are currently on:</p>
-        <p id="link"></p>
+
+    <hr>
+    <!-- opens new tab (mainpage.html) when clicked -->
+    <p>You are currently on:</p>
+    <p id="link"></p>
+    <p id="blockstatus" </p>
+        
         <p id="linkStatus"></p>
+        <button id = "addLink">Add to block list</button>
 
         <script src="popup.js"></script>
-    </div>
-    </div>
+        </div>
+        </div>
 </body>
 
 </html>
